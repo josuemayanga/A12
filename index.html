@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cookie Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 50px;
+      }
+      
+      .cookie-message {
+        background-color: #f0e68c;
+        color: #000;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #ddd;
+        color: #000;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="cookie-message">
+        <p id="message"></p>
+      </div>
+      <button onclick="setCookie()">Set Cookie</button>
+    </div>
+    
+    <div class="footer">
+      josue mayanga 2023
+    </div>
+    
+    <script>
+      function setCookie() {
+        var d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = "example_cookie=example_value; " + expires + "; path=/";
+        document.getElementById("message").innerHTML = "Cookie set!";
+      }
+      
+      function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        
+        for (var i = 0; i < cookieArray.length; i++) {
+          var cookie = cookieArray[i];
+          
+          while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+          }
+          
+          if (cookie.indexOf(cookieName) == 0) {
+            return cookie.substring(cookieName.length, cookie.length);
+          }
+        }
+        
+        return "";
+      }
+      
+      if (getCookie("example_cookie") != "") {
+        document.getElementById("message").innerHTML = "Cookie value: " + getCookie("example_cookie");
+      }
+    </script>
+  </body>
+</html>
